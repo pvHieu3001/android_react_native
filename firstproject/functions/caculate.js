@@ -8,12 +8,19 @@ const Score = props=>{
         setScore(enterScore);
     }
 
+    const addScoreHandle = () => {
+        props.onAddScore(enterScore)
+    }
+
     return (
-        <Modal visible={props.isAddScore}>
-            <View style={{flex:1}}>
+        <Modal visible={props.visible} animationType="slide">
+            <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
                 <TextInput onChangeText = {scoreHandler} value={enterScore}
                 placeholder="score" style={{borderBottomColor:'black', borderBottomWidth:1, width:"80%"}}/>
-                <Button title="ADD" onPress={props.onAddScore.bind(this, enterScore)}/>
+                <View style={{ justifyContent: "space-between", flexDirection: "row"}}>
+                    <Button title="Cancel" style={{margin:10}} color="red" onPress={props.Cancel}/>
+                    <Button title="ADD" onPress={addScoreHandle}/>
+                </View>
             </View>
         </Modal>
     );

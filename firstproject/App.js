@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Platform, StyleSheet, Text, View, Button, ScrollView} from 'react-native';
+import { Platform, StyleSheet, View, Button} from 'react-native';
 import { TextInput, FlatList } from 'react-native-gesture-handler';
 import DataRender from './functions/dataRender';
 import Score from './functions/caculate';
@@ -13,7 +13,7 @@ export default function App() {
   //const [outputText, setOutputText] = useState('Open react-native'); 
   // const [enterScore, setScore] = useState('');
   const [Scores, setScores] = useState([]);
-  const [isAddScore, setIsAddScore] = useState(()=>false);
+  const [isAdd, setIsAdd] = useState(false);
 
   // const scoreHandler = (enterScore)=>{
   //   setScore(enterScore);
@@ -25,16 +25,21 @@ export default function App() {
   }
 
   const removeScore = scoreId =>{
+    console.log("to be deleted "+ scoreId)
     setScores(currentScore => {
       return currentScore.filter((score) => score.id !== scoreId);
     })
   }
 
-  return (
-    <View style={{padding:50, justifyContent:"space-between"}}>
-        <Button title="Add new score" onPress={()=> setIsAddScore(true)} />
+  const cancelAdd = () => {
+    setIsAdd(false);
+  }
 
-        <Score visible={isAddScore} onAddScore={addScoreHanler}/>
+  return (
+    <View style={{padding:50, justifyContent:"center", alignItems:"center"}}>
+        <Button title="Add new score" onPress={()=> setIsAdd(true)} />
+        
+        <Score Cancel={cancelAdd} visible={isAdd} onAddScore={addScoreHanler}/>
 
         <FlatList 
         keyExtractor = {(item, index)=>item.id}
@@ -47,7 +52,7 @@ export default function App() {
           placeholder="score" style={{borderBottomColor:'black', borderBottomWidth:1, width:"80%"}}/>
           <Button title="ADD" onPress={addScoreHanler}/>
         </View> */}
-        
+
 
         {/* <ScrollView>
           {Scores.map((score)=> <View style={{margin:10, backgroundColor:"red"}}><Text>{score}</Text></View>)}
